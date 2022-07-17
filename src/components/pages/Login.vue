@@ -58,9 +58,9 @@ export default {
     login() {
       this.connecting = true
       this.$http.post('admin/adminLogin', this.user)
-      .then(res=> { 
-        console.log('res', res);
-        
+      .then(res=> {
+
+
         this.$ls.set('token', res.data.access_token, 24 * 60 * 60 * 1000)
         this.$ls.set('admin', res.data.admin, 24 * 60 * 60 * 1000)
 
@@ -72,13 +72,13 @@ export default {
       })
       .catch( e => {
         if(e.response.data.error == 'username not found!'){
-          
+
           }
         else if(e.response.data.error == 'username and password does not match!'){
-          
+
           }
         else {
-          
+
           }
           this.connecting = false
       })

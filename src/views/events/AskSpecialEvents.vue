@@ -57,7 +57,7 @@
           <td class="justify-center layout px-0">
 
             <v-tooltip top>
-              <v-btn slot="activator" icon small flat color="blue" @click="showSpecialEventTimes(props.item)"> 
+              <v-btn slot="activator" icon small flat color="blue" @click="showSpecialEventTimes(props.item)">
                 <v-icon  class="mr-2 blue--text" >
                   access_time
                 </v-icon>
@@ -67,23 +67,23 @@
 
             <!--  -->
             <v-tooltip v-if="props.item.deleted_at == null" top>
-              <v-btn 
+              <v-btn
                 slot="activator"
-                :loading="disapprove" 
-                icon small flat color="red" 
+                :loading="disapprove"
+                icon small flat color="red"
                 @click="selectedItem = props.item;askToDeleteDialog = !askToDeleteDialog"
               >
                 <v-icon class="red--text"  >
                     delete
                 </v-icon>
-              </v-btn> 
+              </v-btn>
               <span>تعطيل</span>
-            </v-tooltip> 
+            </v-tooltip>
             <v-tooltip v-else top>
-              <v-btn 
-                slot="activator" 
-                :loading="approve" 
-                icon small flat color="green" 
+              <v-btn
+                slot="activator"
+                :loading="approve"
+                icon small flat color="green"
                 @click="restoreItem(props.item)"
               >
                 <v-icon class="green--text"  >
@@ -119,7 +119,7 @@
         <v-card>
           <v-card-title  class="title red--text">متأكد من إيقاف الفرح</v-card-title>
           <v-card-text>
-            <v-checkbox color="red" label="حذف الفرح نهائيا" v-model="forceDelete"></v-checkbox>        
+            <v-checkbox color="red" label="حذف الفرح نهائيا" v-model="forceDelete"></v-checkbox>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -363,8 +363,8 @@ export default {
         let endpoint = `admin/ask-special-event`
           this.$http.get(endpoint)
             .then( (res) => {
-              console.log(res);
-              
+
+
               let items = res.data.data
               const total = res.data.total
               this.pagination.rowsPerPage = res.data.per_page
@@ -391,8 +391,8 @@ export default {
 
       this.eventTime.start_date = item.start_time;
       // this.eventTime.end_date = item.title_en;
-      console.log(this.eventTime);
-      
+
+
     },
     save () {
       let formdata = new FormData();
@@ -404,12 +404,12 @@ export default {
       if(this.eventTime.end_date)
       this.eventTime.end_date= moment(this.eventTime.end_date).format("YYYY-MM-DD HH:mm:ss");
       formdata.append('end_date', this.eventTime.end_date)
-      console.log(this.eventTime);
-      console.log(formdata);
-      
+
+
+
       this.$http.post(`admin/special-events?page=${this.page}`, formdata)
         .then( res => {
-            
+
           this.getDataFromApi(res)
           .then(data => {
             this.requests = data.items
@@ -428,7 +428,7 @@ export default {
         .catch( ({response}) => {
           this.errors = response.data.errors
         })
-      
+
     },
     deleteEventTime(time){
       // alert(time.id)
@@ -439,7 +439,7 @@ export default {
             this.loadingDeleteTime = false
           },
           err => {
-            alert('حدث خطأ غير متوقع . يرجى المحاولة مرة اخري') 
+            alert('حدث خطأ غير متوقع . يرجى المحاولة مرة اخري')
             this.loadingDeleteTime = false
           },
         )

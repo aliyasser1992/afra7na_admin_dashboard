@@ -48,17 +48,17 @@
                 <v-flex>
                   <v-checkbox v-model="event.special" class="mx-2" label="تمييز الحدث"></v-checkbox>
 
-                  <v-row justify="center" v-show="event.special">
+                  <v-flex justify="center" v-show="event.special">
                     <label>من تاريخ</label>
                     <br />
                     <v-date-picker v-model="event.from"></v-date-picker>
-                  </v-row>
+                  </v-flex>
                   <br />
-                  <v-row justify="center" v-show="event.special">
+                  <v-flex justify="center" v-show="event.special">
                     <label>الى تاريخ</label>
                     <br />
                     <v-date-picker v-model="event.to"></v-date-picker>
-                  </v-row>
+                  </v-flex>
 
                   <br />
                 </v-flex>
@@ -138,7 +138,7 @@
 
         <td class="justify-center layout px-0">
           <!-- <v-tooltip top>
-                <v-btn slot="activator" icon small flat color="blue" @click="editing(props.item)"> 
+                <v-btn slot="activator" icon small flat color="blue" @click="editing(props.item)">
                   <v-icon  class="mr-2 blue--text" >
                     add_alert
                   </v-icon>
@@ -177,13 +177,13 @@
           </v-tooltip>
         </td>
 
-        <!-- <v-btn v-if="props.item.delete_at" small flat color="green" @click="editing(props.item)"> 
+        <!-- <v-btn v-if="props.item.delete_at" small flat color="green" @click="editing(props.item)">
                 تشغيل
                 <v-icon  class="mr-2 green--text" >
                   done
                 </v-icon>
               </v-btn>
-              <v-btn v-else small flat color="red" @click="editing(props.item)"> 
+              <v-btn v-else small flat color="red" @click="editing(props.item)">
                 تعطيل
                 <v-icon  class="mr-2 red--text" >
                   delete
@@ -442,7 +442,7 @@ export default {
 
           const endpoint = `admin/event?category=2${filterByCountry}${filterBySearch}&page=${page}${bySpecialEvent}`;
           this.$http.get(endpoint).then(res => {
-            console.log(res);
+
 
             let items = res.data.data;
             const total = res.data.total;

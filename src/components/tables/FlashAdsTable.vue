@@ -70,11 +70,11 @@
                     label=" رابط الإعلان"
                   />
                   <v-switch v-model="isHttps" label="https" color="primary"></v-switch>
-                  <!-- <v-select style="max-width:150px;height:32px" 
-                        v-model="ad.ads_category_id" 
-                        flat dense 
-                        :items="[{title_ar:'الاقسام', id:null},...addEditCategories]" 
-                        item-text="title_ar" item-value="id" 
+                  <!-- <v-select style="max-width:150px;height:32px"
+                        v-model="ad.ads_category_id"
+                        flat dense
+                        :items="[{title_ar:'الاقسام', id:null},...addEditCategories]"
+                        item-text="title_ar" item-value="id"
                   />-->
                   <v-btn color="primary" @click="$refs.image_input.click()">
                     <v-icon>image</v-icon>صورة
@@ -268,7 +268,7 @@ export default {
         name: "بعد ثلاثة نقرات داخل التطبيق"
       }
     ],
-    
+
     linkPrifix: "",
     http: "http://",
 
@@ -390,7 +390,7 @@ export default {
 
   watch: {
        filterAdsType(val) {
-      // console.log("filterAdsType", val);
+      //
       this.getDataFromApi().then(data => {
         this.requests = data.items;
         this.totalRequests = data.total;
@@ -484,7 +484,7 @@ export default {
         date.getHours() +
         ":" +
         date.getMinutes();
-      // console.log( 'date before', formatted_date);
+      //
       if (formOrTo == "from") {
         date.setMinutes(
           opreator == "-"
@@ -509,7 +509,7 @@ export default {
         date.getHours() +
         ":" +
         date.getMinutes();
-      // console.log( 'date after', formatted_date );
+      //
       return formatted_date;
     },
     fetch() {
@@ -541,7 +541,7 @@ export default {
               ? `admin/flash-ads?country_id=${this.filter}&page=${page}`
               : `admin/flash-ads?page=${page}`;
           this.$http.get(endpoint).then(res => {
-            console.log(this.selected);
+
             let items = res.data.data;
             const total = res.data.total;
             this.pagination.rowsPerPage = res.data.per_page;
@@ -620,7 +620,7 @@ export default {
           this.totalRequests = data.total;
         });
         // this.requests.splice(index, 1)
-        console.log(res.data);
+
 
         this.alert.message = "تم زيادة نسبه مشاهدةالاعلان";
         this.alert.type = "success";
@@ -704,7 +704,7 @@ export default {
           this.edit = false;
         })
         .catch(({ response }) => {
-          console.log(response);
+
           this.errors = response.data.error;
           setTimeout(() => {
             this.ad = {

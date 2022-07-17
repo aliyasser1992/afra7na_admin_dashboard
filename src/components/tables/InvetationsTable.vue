@@ -48,17 +48,17 @@
                 <v-flex>
                   <v-checkbox v-model="event.special" class="mx-2" label="تمييز الحدث"></v-checkbox>
 
-                  <v-row justify="center" v-show="event.special">
+                  <v-flex justify="center" v-show="event.special">
                     <label>من تاريخ</label>
                     <br />
                     <v-date-picker v-model="event.from"></v-date-picker>
-                  </v-row>
+                  </v-flex>
                   <br />
-                  <v-row justify="center" v-show="event.special">
+                  <v-flex justify="center" v-show="event.special">
                     <label>الى تاريخ</label>
                     <br />
                     <v-date-picker v-model="event.to"></v-date-picker>
-                  </v-row>
+                  </v-flex>
 
                   <br />
                 </v-flex>
@@ -137,7 +137,7 @@
         </td>
         <td class="justify-right layout px-0">
           <!-- <v-tooltip v-if="specialEvent === true" top>
-              <v-btn slot="activator" icon small flat color="blue" @click="sendNotifications(props.item)"> 
+              <v-btn slot="activator" icon small flat color="blue" @click="sendNotifications(props.item)">
                 <v-icon  class="mr-2 blue--text" >
                   add_alert
                 </v-icon>
@@ -524,7 +524,7 @@ export default {
 
           const endpoint = `admin/event?category=3${filterByCountry}${filterBySearch}&page=${page}${bySpecialEvent}`;
           this.$http.get(endpoint).then(res => {
-            console.log(res);
+
 
             let items = res.data.data;
             const total = res.data.total;
@@ -616,7 +616,7 @@ export default {
       this.notiControl.eventId = item.id;
     },
     sendNotifications(item) {
-      console.log(item);
+
       let formdata = new FormData();
 
       if (this.notiControl.selectedCountry != null)
@@ -642,9 +642,9 @@ export default {
         });
     },
     selectedCountryChanged(newValue) {
-      console.log(newValue);
+
       this.$http.get(`admin/region?country_id=${newValue}`).then(res => {
-        console.log(res);
+
 
         this.notiControl.regions = res.data.data;
       });

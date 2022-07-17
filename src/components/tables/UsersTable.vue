@@ -1,7 +1,7 @@
 <template>
 <div class="elevation-2">
   <vuetify-alert @message="alert.message = ''" :message="alert.message" :type="alert.type" />
-    
+
     <v-toolbar flat color="white">
       <v-toolbar-title class=""><v-icon medium>{{icon}}</v-icon> {{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -13,18 +13,18 @@
           hide-details
       >
       </v-text-field>
-      
-      
+
+
       <v-dialog v-model="addEditDialog" max-width="500px">
-        
+
         <v-tooltip top slot="activator">
-          <v-btn 
-            slot="activator" 
-            color="primary" 
-            dark 
-            class="mb-2" 
+          <v-btn
+            slot="activator"
+            color="primary"
+            dark
+            class="mb-2"
             @click="edit = false"
-          > 
+          >
             <v-icon>add</v-icon>
           </v-btn>
           <span>إضافة مدير جديد</span>
@@ -63,7 +63,7 @@
                 <v-btn color="blue darken-1" flat @click.native="close">الغاء</v-btn>
                 <v-btn color="blue darken-1" flat @click.native="save">حفظ</v-btn>
             </v-card-actions>
-        </v-card> 
+        </v-card>
       </v-dialog>
     </v-toolbar>
 
@@ -87,12 +87,12 @@
 
             <td class="text-xs-right">
               <img v-if="props.item.image"  :src="$root.$data.baseURL+props.item.image" :ref="'user_'+props.item.id" @error="imageFallBack(props.item.id)" alt="صورة المستخدم" title="صورة المستخدم" width="50px" height="50px" style="cursor:pointer" @click="() => {image = props.item.image;mdialog = true;}">
-              
+
               <img v-else  src="@/assets/avatar.png" alt="صورة المستخدم" title="صورة المستخدم" width="50px" height="50px" style="cursor:pointer" >
             </td>
 
             <td class="justify-right layout px-0">
-              <v-btn small flat color="blue" @click="editing(props.item)"> 
+              <v-btn small flat color="blue" @click="editing(props.item)">
                 تعديل
                 <v-icon  class="mr-2 blue--text" >
                     edit
@@ -103,7 +103,7 @@
                 <v-icon class="red--text"  >
                     delete
                 </v-icon>
-              </v-btn>  
+              </v-btn>
               <v-btn v-else :loading="approve" small flat color="green" @click="restoreItem(props.item)">
                 تنشيط
                 <v-icon class="green--text"  >
@@ -139,11 +139,11 @@
           </v-alert>
         </template>
     </v-data-table>
-    
+
     <div class="text-xs-center pt-2">
       <v-pagination total-visible="6" color="primary" v-model="pagination.page" :length="pages"></v-pagination>
     </div>
-    
+
     <v-dialog
       v-if="image"
       v-model="mdialog"
@@ -162,7 +162,7 @@
         <v-card-title  class="title red--text">متأكد من إيقاف المستخدم؟</v-card-title>
 
         <v-card-text>
-          <v-checkbox color="red" label="حذف المستخدم نهائيا" v-model="forceDelete"></v-checkbox>        
+          <v-checkbox color="red" label="حذف المستخدم نهائيا" v-model="forceDelete"></v-checkbox>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -321,8 +321,8 @@ export default {
           const endpoint = (this.search.replace(/\s/g, '').length>0)?'api/admin/users/search/' + this.search :'admin/admins?page=' + page
         this.$http.get(endpoint)
         .then( (res) => {
-          console.log('admins', res);
-          
+
+
           let items = res.data.admins.data
           const total = res.data.admins.total
           this.pagination.rowsPerPage = res.data.admins.per_page
@@ -345,7 +345,7 @@ export default {
       this.$refs[`user_${id}`].src = '../assets/avatar.png'
     },
     deleteItem() {
-      // console.log(this.selectedItem);
+      //
       const item = this.selectedItem
       this.disapprove = true
       const endPoint = this.forceDelete == true ? `admin/destroy/${item.id}`:`admin/trached/${item.id}`
@@ -359,9 +359,9 @@ export default {
           // this.requests.splice(index, 1)
           // this.alert.message = forceDelete == 1 ? 'تم حذف المستخدم!' : 'تم إيقاف المستخدم!ّ'
           this.alert.message = this.forceDelete == true ? 'تم حذف المستخدم!' : 'تم إيقاف المستخدم!ّ'
-          
+
           this.alert.type = 'info'
-          this.dialog = false 
+          this.dialog = false
           this.disapprove = false
         })
     },
@@ -373,7 +373,7 @@ export default {
       const forceDelete = this.forceDelete == true ? 1:0
         this.$http.post('api/admin/users/'+ item.id+ '/restore'+'?page=' + this.page)
         .then( res => {
-           
+
           this.getDataFromApi(res)
           .then(data => {
             this.requests = data.items
@@ -420,13 +420,13 @@ export default {
         newformdata.append("password", this.newUser.password);
         editformdata.password = this.newUser.password
 
-      console.log('editformdata', editformdata);
-      
+
+
       if (this.edit) {
         this.$http.put(`admin/country/${this.country.id}`, editformdata)
           .then(res => {
-            console.log(res.data);
-            
+
+
             this.$set(this.requests, index, editformdata)
             this.alert.type = "warning";
             this.alert.message = "تم تعديل الدولة!";
@@ -464,7 +464,7 @@ export default {
           });
       }
     },
-    
+
   }
 }
 </script>

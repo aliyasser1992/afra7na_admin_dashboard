@@ -194,6 +194,19 @@ export default {
         ]
       },
       {
+        icon: "backup",
+        "icon-alt": "backup",
+        text: "النسخ الاحتياطية",
+        children: [
+          {
+            icon: "backup",
+            text: "النسخ الاحتياطية ",
+            url: "/backups",
+            subtext: "انشاء | عرض "
+          }
+        ]
+      },
+      {
         icon: "supervisor_account",
         "icon-alt": "layers",
         text: "الأحداث",
@@ -226,7 +239,7 @@ export default {
             icon: "list",
             text: " ارسال الاشعارات",
             url: "/notifications",
-          
+
           },
           ]
       },
@@ -251,6 +264,28 @@ export default {
         icon: "devices_other",
         text: " اعلانات الفلاش",
         url: "/flash-ads"
+      },
+      {
+        icon: "tv",
+        "icon-alt": "tv",
+        text: "الدعاية و الاعلان",
+        children: [
+          {
+            icon: "link",
+            text: "المعلنين",
+            url: "/advertisers"
+          },
+          {
+            icon: "link",
+            text: "الاعلانات",
+            url: '/banners'
+          },
+          {
+            icon: 'link',
+            text: 'الاحصائيات',
+            url: '/banners-reach'
+          }
+        ]
       },
       {
         icon: "language",
@@ -363,7 +398,7 @@ export default {
           this.newPassSuccess = false;
         })
         .catch(e => {
-          console.log(e);
+
 
           if (e.response.data.error.username) {
             alert("اسم المستخدم مطلوب");

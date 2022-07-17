@@ -1,20 +1,20 @@
 <template>
 <div class="elevation-2">
   <vuetify-alert @message="alert.message = ''" :message="alert.message" :type="alert.type" />
-    
+
     <v-toolbar flat color="white">
       <v-toolbar-title class=""><v-icon medium>{{icon}}</v-icon> {{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-dialog v-model="addEditDialog" max-width="500px">
-        
+
         <v-tooltip top slot="activator">
-          <v-btn 
-            slot="activator" 
-            color="primary" 
+          <v-btn
+            slot="activator"
+            color="primary"
             fab dark small
-            class="mb-2" 
+            class="mb-2"
             @click="edit = false;errors=[];newUser={}"
-          > 
+          >
             <v-icon>add</v-icon>
           </v-btn>
           <span>إضافة مدير جديد</span>
@@ -59,7 +59,7 @@
                 <v-btn color="" class="ma-2"  small @click.native="close">الغاء</v-btn>
                 <v-btn color="primary" class="ma-2" depressed small @click.native="save">حفظ</v-btn>
             </v-card-actions>
-        </v-card> 
+        </v-card>
       </v-dialog>
       <v-spacer></v-spacer>
       <v-text-field
@@ -94,12 +94,12 @@
 
         <!-- <td class="text-xs-right">
           <img v-if="props.item.image"  :src="https://afr7na.com/public+props.item.image" :ref="'user_'+props.item.id" @error="imageFallBack(props.item.id)" alt="صورة المستخدم" title="صورة المستخدم" width="50px" height="50px" style="cursor:pointer" @click="() => {image = props.item.image;mdialog = true;}">
-          
+
           <img v-else  src="@/assets/avatar.png" alt="صورة المستخدم" title="صورة المستخدم" width="50px" height="50px" style="cursor:pointer" >
         </td> -->
 
         <td class="justify-right layout px-0">
-          <!-- <v-btn small flat color="blue" @click="editing(props.item)"> 
+          <!-- <v-btn small flat color="blue" @click="editing(props.item)">
             تعديل
             <v-icon  class="mr-2 blue--text" >
                 edit
@@ -107,23 +107,23 @@
           </v-btn> -->
           <v-tooltip v-if="props.item.deleted_at == null" top>
             <v-btn
-              slot="activator" 
-              :loading="disapprove" 
-              small flat icon color="red" 
+              slot="activator"
+              :loading="disapprove"
+              small flat icon color="red"
               @click="selectedItem = props.item;askToDeleteDialog = !askToDeleteDialog"
             >
               <v-icon class="red--text"  >
                   delete
               </v-icon>
-            </v-btn> 
+            </v-btn>
             <span>تعطيل</span>
           </v-tooltip>
 
           <v-tooltip v-else top>
             <v-btn
-              slot="activator"  
-              :loading="approve" 
-              small flat icon color="green" 
+              slot="activator"
+              :loading="approve"
+              small flat icon color="green"
               @click="restoreItem(props.item)"
             >
               <v-icon class="green--text"  >
@@ -161,11 +161,11 @@
         </v-alert>
       </template>
     </v-data-table>
-    
+
     <div class="text-xs-center pt-2">
       <v-pagination total-visible="6" color="primary" v-model="page" :length="pages"></v-pagination>
     </div>
-    
+
     <v-dialog
       v-if="image"
       v-model="mdialog"
@@ -183,7 +183,7 @@
       <v-card>
         <v-card-title  class="title red--text">متأكد من إيقاف المستخدم؟</v-card-title>
         <v-card-text>
-          <v-checkbox color="red" label="حذف المستخدم نهائيا" v-model="forceDelete"></v-checkbox>        
+          <v-checkbox color="red" label="حذف المستخدم نهائيا" v-model="forceDelete"></v-checkbox>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -277,7 +277,7 @@ export default {
       message: '',
       type: 'success'
     },
-    
+
   }),
 
   computed: {
@@ -340,16 +340,16 @@ export default {
         }
         else {
 
-          let filterBySearch = (this.search == "") 
-          ? '' 
+          let filterBySearch = (this.search == "")
+          ? ''
           : `&filter=${this.search}`
 
           const endpoint = `admin/admins?page=${page}${filterBySearch}`
 
           this.$http.get(endpoint)
           .then( (res) => {
-            console.log('admins', res);
-            
+
+
             let items = res.data.admins.data
             const total = res.data.admins.total
             this.pagination.rowsPerPage = res.data.admins.per_page
@@ -383,9 +383,9 @@ export default {
             this.totalRequests = data.total
           })
           this.alert.message = this.forceDelete == true ? 'تم حذف المستخدم!' : 'تم إيقاف المستخدم!ّ'
-          
+
           this.alert.type = 'info'
-          this.askToDeleteDialog = false 
+          this.askToDeleteDialog = false
           this.forceDelete = false
           this.disapprove = false
         })
@@ -398,7 +398,7 @@ export default {
       const forceDelete = this.forceDelete == true ? 1:0
         this.$http.delete(`admin/cancel_trached/${item.id}`)
         .then( res => {
-           
+
           this.getDataFromApi()
           .then(data => {
             this.requests = data.items
@@ -445,13 +445,13 @@ export default {
         newformdata.append("password", this.newUser.password);
         editformdata.password = this.newUser.password
 
-      console.log('editformdata', editformdata);
-      
+
+
       if (this.edit) {
         this.$http.put(`admin/country/${this.country.id}`, editformdata)
           .then(res => {
-            console.log(res.data);
-            
+
+
             this.$set(this.requests, index, editformdata)
             this.alert.type = "warning";
             this.alert.message = "تم تعديل الدولة!";
@@ -489,7 +489,7 @@ export default {
           });
       }
     },
-    
+
   }
 }
 </script>

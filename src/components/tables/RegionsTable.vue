@@ -12,22 +12,22 @@
           single-line
           hide-details
         ></v-text-field> -->
-        <v-select 
-          style="max-width:200px;height:42px;font-size: 11px" 
-          v-model="filterCountry" flat dense :items="[{title_ar:'الدول', id:null},...searchCountries]" 
+        <v-select
+          style="max-width:200px;height:42px;font-size: 11px"
+          v-model="filterCountry" flat dense :items="[{title_ar:'الدول', id:null},...searchCountries]"
           item-text="title_ar" item-value="id" label="الدول"
         />
-            
+
           <v-dialog v-model="dialog" max-width="500px">
 
             <v-tooltip top slot="activator">
-              <v-btn 
-                slot="activator" 
-                color="primary" 
+              <v-btn
+                slot="activator"
+                color="primary"
                 fab dark small
-                class="mb-2" 
+                class="mb-2"
                 @click="edit = false;errors=[];region={}"
-              > 
+              >
                 <v-icon>add</v-icon>
               </v-btn>
               <span>إضافة منطقة جديد</span>
@@ -60,10 +60,10 @@
                       <v-flex>
                         <v-text-field v-model="region.title_ar" label=" اسم المنطقة بالعربية" />
                         <v-text-field v-model="region.title_en"  label="اسم المنطقة بالانجليزية" />
-                        <v-select style="" 
-                          v-model="region.country_id" 
-                          flat dense 
-                          :items="[{title_ar:'الدول', id:null},...addEditCountries]" 
+                        <v-select style=""
+                          v-model="region.country_id"
+                          flat dense
+                          :items="[{title_ar:'الدول', id:null},...addEditCountries]"
                           item-text="title_ar" item-value="id" label="الدولة"
                         />
                       </v-flex>
@@ -99,7 +99,7 @@
 
               <td class="justify-right layout px-0">
                 <v-tooltip top>
-                  <v-btn slot="activator" icon small flat color="blue" @click="editing(props.item)"> 
+                  <v-btn slot="activator" icon small flat color="blue" @click="editing(props.item)">
                     <v-icon  class="mr-2 blue--text" >
                         edit
                     </v-icon>
@@ -111,7 +111,7 @@
                     <v-icon class="red--text"  >
                         delete
                     </v-icon>
-                  </v-btn>  
+                  </v-btn>
                   <span>مسح المنطقة</span>
                 </v-tooltip>
               </td>
@@ -140,7 +140,7 @@
           <v-card-title  class="title red--text">هل تريد تعطيل المنطقة؟</v-card-title>
 
           <v-card-text>
-            <v-checkbox color="red" label="حذف المنطقة نهائيا" v-model="forceDelete"></v-checkbox>        
+            <v-checkbox color="red" label="حذف المنطقة نهائيا" v-model="forceDelete"></v-checkbox>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -316,18 +316,18 @@ export default {
           const total = res.data.total;
           this.pagination.rowsPerPage = res.data.per_page;
           this.pagination.totalItems = res.data.total;
-    
+
           setTimeout(() => {
             this.loading = false
           }, 300)
-    
+
           resolve({
             items,
             total
           });
         } else {
-          let filterByCountry = (this.filterCountry == null) 
-          ? '' 
+          let filterByCountry = (this.filterCountry == null)
+          ? ''
           : `&country_id=${this.filterCountry}`
           const endpoint = (this.search.replace(/\s/g, '').length>0)
           ? `admin/region?title=${this.search}${filterByCountry}`
@@ -344,7 +344,7 @@ export default {
               items,
               total
             });
-      
+
           });
         }
       });
@@ -408,13 +408,13 @@ export default {
         newformdata.append("country_id", this.region.country_id);
         editformdata.country_id = this.region.country_id
 
-      console.log('editformdata', editformdata);
-      
+
+
       if (this.edit) {
         this.$http.put(`admin/region/${this.region.id}`, editformdata)
           .then(res => {
-            console.log(res.data);
-            
+
+
             this.$set(this.requests, index, editformdata)
             this.alert.type = "warning";
             this.alert.message = "تم تعديل المنطقة!";

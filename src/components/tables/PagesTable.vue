@@ -61,11 +61,11 @@
         :search="search"
         hide-actions
         :pagination.sync="pagination"
-        
+
         class="elevation-1"
       >
         <template v-if="requests" slot="items" slot-scope="props">
-          
+
           <td class="text-xs-right"  v-if="props.item.title_ar">{{ props.item.title_ar }}</td>
           <td class="text-xs-right" v-else>لا يوجد اسم</td>
 
@@ -81,7 +81,7 @@
 
           <td class="justify-right layout px-0">
             <v-tooltip top>
-              <v-btn slot="activator" icon :loading="approve"  flat color="blue" @click="editing(props.item)"> 
+              <v-btn slot="activator" icon :loading="approve"  flat color="blue" @click="editing(props.item)">
                 <v-icon  class="mr-2 blue--text" >
                     edit
                 </v-icon>
@@ -97,7 +97,7 @@
               </v-btn>
               <span>مسح الإعلان</span>
             </v-tooltip>
-            
+
           </td>
 
         </template>
@@ -312,11 +312,11 @@ export default {
       this.requests = data.items
       this.totalRequests = data.total
     })
-    
+
   },
   methods: {
-    
-    
+
+
     getDataFromApi (res = null) {
       this.loading = true
       return new Promise((resolve, reject) => {
@@ -340,7 +340,7 @@ export default {
           `admin/pages?page=${page}`
           this.$http.get(endpoint)
           .then( (res) => {
-            console.log(this.selected)
+
             let items = res.data.data
             const total = res.data.total
             this.pagination.rowsPerPage = res.data.per_page
@@ -422,8 +422,8 @@ export default {
       this.index = this.requests.indexOf(item)
     },
     save() {
-      console.log(this.pageItem);
-      
+
+
       const index = this.index
       let newformdata = new FormData();
       const editformdata = {};
@@ -442,7 +442,7 @@ export default {
 
       const endpoint = this.edit ? `admin/pages/${this.pageItem.id}` : `admin/pages`
       this.$http.put(endpoint, editformdata)
-        .then(res => {            
+        .then(res => {
           this.$set(this.requests, index, editformdata)
           this.alert.type = "warning";
           this.alert.message = this.edit ? `تم تعديل الصفحة` : `تم حفظ الصفحة`

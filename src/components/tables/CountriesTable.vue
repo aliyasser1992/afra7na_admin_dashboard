@@ -6,13 +6,13 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <v-tooltip top slot="activator">
-            <v-btn 
-              slot="activator" 
-              color="primary" 
-              fab dark small 
-              class="mb-2" 
+            <v-btn
+              slot="activator"
+              color="primary"
+              fab dark small
+              class="mb-2"
               @click="edit = false,errors = []"
-            > 
+            >
               <v-icon>add</v-icon>
             </v-btn>
             <span>إضافة دولة جديد</span>
@@ -99,7 +99,7 @@
             <td class="justify-right layout px-0">
 
               <v-tooltip top>
-                <v-btn slot="activator" icon :loading="approve"  flat color="blue" @click="editing(props.item)"> 
+                <v-btn slot="activator" icon :loading="approve"  flat color="blue" @click="editing(props.item)">
                   <v-icon  class="mr-2 blue--text" >
                       edit
                   </v-icon>
@@ -108,7 +108,7 @@
               </v-tooltip>
 
               <v-tooltip top>
-                <v-btn slot="activator" icon :loading="disapprove" flat color="red" @click="deleteItem(props.item)"> 
+                <v-btn slot="activator" icon :loading="disapprove" flat color="red" @click="deleteItem(props.item)">
                   <v-icon  class="mr-2 red--text" >
                       delete
                   </v-icon>
@@ -142,7 +142,7 @@
         <v-card-title  class="title red--text">هل تريد تعطيل الدولة؟</v-card-title>
 
         <v-card-text>
-          <v-checkbox color="red" label="حذف الدولة نهائيا" v-model="forceDelete"></v-checkbox>        
+          <v-checkbox color="red" label="حذف الدولة نهائيا" v-model="forceDelete"></v-checkbox>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -391,7 +391,7 @@ export default {
         editformdata.currency_ar = this.country.currency_ar
       if (this.country.currency_en)
         newformdata.append("currency_en", this.country.currency_en);
-      console.log('editformdata', editformdata);
+
       const endpoint = this.edit ? `admin/country/${this.country.id}` : `admin/country?page="${this.page}`
       this.$http
           .post(endpoint, newformdata)

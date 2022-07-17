@@ -11,19 +11,19 @@
       <v-tabs-slider color="red darken-2"></v-tabs-slider>
 
       <v-tab v-for="(item, index) in categories" :key="index" class="tab" light :href="`#tab-${item.id}`">
-        {{ item.title_ar }} 
+        {{ item.title_ar }}
         <v-icon>subject</v-icon>
       </v-tab>
       <v-tabs-items v-model="model">
-        <v-tab-item v-for="(item, index) in categories" :key="index" :id="`tab-${item.id}`">
+        <v-tab-item v-for="(item, index) in categories" :key="index" :value="`tab-${item.id}`">
           <v-card flat>
             <v-card-text row >
                 <v-layout justify-center>
                   <v-flex md10>
-                    <weddings-table v-if="item.id == 1" :cat_id="item.id" :title="item.title_ar" icon="link"/> 
+                    <weddings-table v-if="item.id == 1" :cat_id="item.id" :title="item.title_ar" icon="link"/>
 
                     <occasions-table v-else-if="item.id == 2" :cat_id="item.id" :title="item.title_ar" icon="link"/>
-                    
+
                     <invetations-table v-else-if="item.id == 3" :cat_id="item.id" :title="item.title_ar" icon="link"/>
                   </v-flex>
                 </v-layout>
@@ -60,12 +60,12 @@ export default {
       let app = this
       app.$http.get('admin/main_category')
         .then( res => {
-            console.log('res => ', res)
+
             app.categories = res.data
-          } 
+          }
         )
         .catch( (er) => {
-            // console.log(res)
+            //
         })
     }
   },

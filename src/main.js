@@ -28,6 +28,8 @@ import imageBaseUrl from './components/config/imageBaseUrl'
 // import Notifications from "./components/pages/Notifications";
 import ReadMore from 'vue-read-more';
 import moment from 'moment';
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css"
 
 Vue.prototype.moment = moment
 Vue.prototype.$imageBaseUrl = 'http://afr7na.com/public'
@@ -73,6 +75,7 @@ const http = axios.create({
 http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.ls.get('token', null);
 
 Vue.prototype.$http = http
+Vue.prototype.$swal = Swal;
 
 Vue.use(DatetimePicker)
 

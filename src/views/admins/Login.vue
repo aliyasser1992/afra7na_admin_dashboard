@@ -60,7 +60,7 @@ export default {
       this.connecting = true
       this.$http.post('admin/adminLogin', this.user)
       .then(res=> {
-        console.log('res', res);
+
 
         this.$ls.set('token', res.data.access_token)
         this.$ls.set('admin', res.data.admin)

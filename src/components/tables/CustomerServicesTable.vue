@@ -4,7 +4,7 @@
     <v-toolbar flat color="white">
       <v-toolbar-title class=""><v-icon medium>{{icon}}</v-icon> {{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      
+
       <v-spacer></v-spacer>
       <v-text-field
         style="max-width:200px;height:42px;font-size: 11px"
@@ -61,7 +61,7 @@
         </v-alert>
       </template>
     </v-data-table>
-    
+
     <div class="text-xs-center pt-2">
       <v-pagination total-visible="6" color="primary" v-model="pagination.page" :length="pages"></v-pagination>
     </div>
@@ -214,8 +214,8 @@ export default {
           const endpoint = (this.search.replace(/\s/g, '').length>0)?`admin/support?filter=${this.search}` :`admin/support?page=${page}`
         this.$http.get(endpoint)
         .then( (res) => {
-          console.log('admins', res);
-          
+
+
           let items = res.data.data
           const total = res.data.total
           this.pagination.rowsPerPage = res.data.per_page

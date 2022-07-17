@@ -87,17 +87,17 @@
                     label="تمييز الاعلان"
                   ></v-checkbox>
 
-                  <v-row justify="center" v-show="ad.special">
+                  <v-flex justify="center" v-show="ad.special">
                     <label>من تاريخ</label>
                     <br />
                     <v-date-picker v-model="ad.from"></v-date-picker>
-                  </v-row>
+                  </v-flex>
                   <br />
-                  <v-row justify="center" v-show="ad.special">
+                  <v-flex justify="center" v-show="ad.special">
                     <label>الى تاريخ</label>
                     <br />
                     <v-date-picker v-model="ad.to"></v-date-picker>
-                  </v-row>
+                  </v-flex>
 
                   <br />
                   <v-btn color="primary" @click="$refs.image_input.click()">
@@ -206,7 +206,7 @@
 
         <td
           class="text-xs-right"
-          v-if="props.item.country.title_ar"
+          v-if="props.item.country && props.item.country.title_ar"
         >{{ props.item.country.title_ar }}</td>
         <td class="text-xs-right" v-else>لا يوجد اسم</td>
 
@@ -598,7 +598,7 @@ export default {
 
   watch: {
     // addEditDialog(val) {
-    //   console.log('addEditDialog', val)
+    //
     //   if (!val) {
     //     this.ad = {
     //       id: null,
@@ -624,7 +624,7 @@ export default {
       });
     },
     filterAdsType(val) {
-      // console.log("filterAdsType", val);
+      //
       this.getDataFromApi().then(data => {
         this.requests = data.items;
         this.totalRequests = data.total;
@@ -671,7 +671,7 @@ export default {
         this.schedule_start + " " + this.picker,
         "from"
       );
-      console.log(schedule);
+
       this.$http
         .post("http://souq24app.com/api/admin/reschedule-product/", {
           schedule_start: schedule,
@@ -720,7 +720,7 @@ export default {
         date.getHours() +
         ":" +
         date.getMinutes();
-      // console.log( 'date before', formatted_date);
+      //
       if (formOrTo == "from") {
         date.setMinutes(
           opreator == "-"
@@ -745,7 +745,7 @@ export default {
         date.getHours() +
         ":" +
         date.getMinutes();
-      // console.log( 'date after', formatted_date );
+      //
       return formatted_date;
     },
     changeProductNumbers() {
@@ -847,24 +847,24 @@ export default {
             total
           });
         } else {
-          console.log('this.filterAdsType',this.filterAdsType)
-          console.log('this.filterCategory',this.filterCategory)
+
+
           let endpoint = "";
             if(this.filterCategory !== null && this.filterAdsType !== null ){
            endpoint = `admin/ads?is_admin=${this.filterAdsType}&ads_category_id=${this.filterCategory}&page=${page}`
-       
+
           } else  if (this.filterCategory !== null) {
             endpoint = `admin/ads?ads_category_id=${this.filterCategory}&page=${page}`;
-         
+
           } else   if (this.filterAdsType !== null) {
             endpoint = `admin/ads?is_admin=${this.filterAdsType}&page=${page}`;
-        
+
           }else {
             endpoint = `admin/ads?page=${page}`;
           }
-          console.log("end point", endpoint);
+
           this.$http.get(endpoint).then(res => {
-            console.log(this.selected);
+
             let items = res.data.data;
             const total = res.data.total;
             this.pagination.rowsPerPage = res.data.per_page;
@@ -1020,12 +1020,12 @@ export default {
       };
     },
     changeSpicalState(special) {
-      console.log(special);
+
       this.ad.special = special;
-      console.log(this.ad.special);
+
     },
     editing(item) {
-      console.log("item", item);
+
       this.errors = [];
       this.addEditDialog = !this.addEditDialog;
       this.edit = true;
@@ -1102,9 +1102,9 @@ export default {
       this.$http
         .post(endpoint, newformdata)
         .then(res => {
-          console.log("this.requests", this.requests);
-          console.log("index", index);
-          console.log("newformdata", newformdata);
+
+
+
           // this.$set(this.requests, index, newformdata);
           this.alert.type = "warning";
           this.alert.message = this.edit
@@ -1139,7 +1139,7 @@ export default {
     showImages(images) {
       this.imageDialog = true;
       this.ads_images = images;
-      console.log("this.ads_images", this.ads_images);
+
     },
     ads_state(item) {
       this.$http
@@ -1150,7 +1150,7 @@ export default {
             this.totalRequests = data.total;
           });
           // this.requests.splice(index, 1)
-          console.log(res.data);
+
           if (res.data.data === 1) {
             this.alert.message = "تم تفعيل الاعلان";
           } else {
@@ -1167,7 +1167,7 @@ export default {
           this.totalRequests = data.total;
         });
         // this.requests.splice(index, 1)
-        console.log(res.data);
+
         if (res.data.data === 1) {
           this.alert.message = "تم تثبيت الاعلان";
         } else {
@@ -1184,7 +1184,7 @@ export default {
           this.totalRequests = data.total;
         });
         // this.requests.splice(index, 1)
-        console.log(res.data);
+
 
         this.alert.message = "تم زيادة نسبه مشاهدةالاعلان";
 

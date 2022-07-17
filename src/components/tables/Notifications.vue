@@ -236,7 +236,7 @@ export default {
   methods: {
     fetch() {
       this.$http.get("admin/get_notifications").then(res => {
-        console.log(res.data.data);
+
         this.requests = res.data.data;
         this.totalRequests = this.requests.length;
       });
@@ -247,9 +247,9 @@ export default {
       });
     },
     fetchRegionByCountryId(id) {
-      console.log("country_id", id);
+
       this.$http.get(`admin/fetch_region/${id}`).then(res => {
-        console.log(res.data.data);
+
         this.Region = res.data.data;
       });
     },
@@ -266,11 +266,11 @@ export default {
       };
     },
     save() {
-      console.log(this.notificationsForm);
+
       this.$http
         .post("admin/ads_notifications", this.notificationsForm)
         .then(res => {
-          console.log(res.data.data);
+
           this.requests.push(res.data.data);
           this.alert.message = "تم ارسال اشعار جديد بنجاح !";
           this.alert.type = "success";

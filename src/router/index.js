@@ -16,7 +16,7 @@ import Login from '@/components/pages/Login'
 import baseURL from '@/components/config/baseurl'
 
 function loadView(view) {
-  console.log('view',view)
+
   return () => import(`@/views/${view}.vue`)
 }
 
@@ -156,13 +156,66 @@ const router = new Router({
         requiresAuth: true,
       }
     },
+    {
+      path: '/backups',
+      name: 'backups',
+      component: loadView('backups/BackupPage'),
+      secure: true,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/advertisers',
+      component: loadView('advertising/advertisers/AdvertisersHomePage'),
+      secure: true,
+      meta: {
+        requiresAuth: true
+      },
+      children: [
+        {
+          path: '',
+          component: loadView('advertising/advertisers/AdvertisersPage')
+        },
+        {
+          path: 'add',
+          component: loadView('advertising/advertisers/AddAdvertiserPage')
+        },
+        {
+          path: ':id/edit',
+          component: loadView('advertising/advertisers/EditAdvertiserPage')
+        }
+      ]
+    },
+    {
+      path: '/banners',
+      component: loadView('advertising/banners/BannersHome'),
+      secure: true,
+      meta: {
+        requiresAuth: true,
+      },
+      children: [
+        {
+          path: '',
+          component: loadView('advertising/banners/BannersList')
+        },
+        {
+          path: 'add',
+          component: loadView('advertising/banners/AddBanner')
+        },
+        {
+          path: ':id/edit',
+          component: loadView('advertising/banners/EditBanner')
+        },
+      ]
+    }
   ]
 })
 
 
 
 router.beforeEach((to, from, next) => {
-  console.log(localStorage.getItem('admin'));
+
 
   if(to.matched.some(record => record.meta.requiresAuth)) {
       if (localStorage.getItem('admin') == null) {
