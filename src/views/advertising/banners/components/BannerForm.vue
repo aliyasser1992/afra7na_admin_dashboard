@@ -285,7 +285,7 @@ export default {
         this.selectedAdvertiser = this.banner.advertiser;
         this.selectedEvent = this.banner.event;
         if (this.banner.link) {
-          this.defaultAdImage = `${baseURL.replace('api','public/')}${this.banner.link}`
+          this.defaultAdImage = `${baseURL.replace('api','public')}${this.banner.link}`
         }
       }).catch((err) => {
         console.log(err)

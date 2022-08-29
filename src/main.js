@@ -75,9 +75,16 @@ const http = axios.create({
 http.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.ls.get('token', null);
 
 Vue.prototype.$http = http
-Vue.prototype.$swal = Swal;
+//Vue.prototype.$swal = Swal;
 
-Vue.use(DatetimePicker)
+let SwalPlugin = {
+  install: function (App) {
+    App.prototype.$swal = Swal;
+  }
+}
+
+Vue.use(DatetimePicker);
+Vue.use(SwalPlugin);
 
 /* eslint-disable no-new */
 new Vue({

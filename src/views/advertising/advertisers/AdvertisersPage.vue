@@ -44,7 +44,13 @@
             </v-btn>
           </td>
           <td>
-            <v-btn color="red white--text" small circle :icon="true" @click="removeAdvertiser(props.item.id)">
+            <v-btn
+              color="red white--text"
+              small
+              circle
+              :icon="true"
+              @click="removeAdvertiser(props.item.id)"
+            >
               <v-icon>delete</v-icon>
             </v-btn>
           </td>
@@ -146,37 +152,22 @@ export default {
         });
     },
     removeAdvertiser(id) {
-      this.$swal
-        .fire({
-          text: "تحذير",
-          title: "هل تريد حذف هذا المعلن؟",
-          icon: "warning",
-          toast: true,
-          showDenyButton: true,
-          denyButtonText: "الغاء",
-          confirmButtonText: "حذف",
-        })
-        .then((response) => {
-          if (response.isConfirmed) {
-            this.$http
-              .delete(`admin/advertising/advertisers/${id}`)
-              .then((res) => {
-                this.$swal.fire({
-                  text: "تم الحذف بنجاح",
-                  toast: true,
-                  icon: "success",
-                });
-                this.fetchAdvertisers(this.pagination.page);
-              })
-              .catch((err) => {
-                this.$swal.fire({
-                  text: "خطا اثناء حذف المعلن",
-                  toast: true,
-                  icon: "error",
-                });
-              });
-          }
-        });
+      let response = confirm("هل تود حقا حذف المعلن");
+      if (response) {
+        this.$http
+          .delete(`admin/advertising/advertisers/${id}`)
+          .then((res) => {
+            this.$swal.fire({
+              text: "تم الحذف بنجاح",
+              toast: true,
+              icon: "success",
+            });
+            this.fetchAdvertisers(this.pagination.page);
+          })
+          .catch((err) => {
+            console.log(err)
+          });
+      }
     },
   },
 };

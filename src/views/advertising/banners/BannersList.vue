@@ -10,7 +10,11 @@
     </v-toolbar>
     <v-card>
       <v-card-title>
-        <v-text-field type="search" placeholder="بحث" v-model="search"></v-text-field>
+        <v-text-field
+          type="search"
+          placeholder="بحث"
+          v-model="search"
+        ></v-text-field>
         <v-icon>search</v-icon>
       </v-card-title>
       <v-data-table
@@ -157,7 +161,7 @@ export default {
         video: "فيديو",
       },
       search: null,
-      searchTimeout : null,
+      searchTimeout: null,
     };
   },
   mounted() {
@@ -169,39 +173,32 @@ export default {
     },
     search($new) {
       if (this.searchTimeout) {
-        clearTimeout(this.searchTimeout)
+        clearTimeout(this.searchTimeout);
       }
       this.searchTimeout = setTimeout(() => {
         this.fetchBanners();
       }, 500);
-    }
+    },
   },
   methods: {
     createRequestParams(options = {}) {
       return {
         search: this.search,
         sort: options.sortBy || this.pagination.sortBy,
-        order: options.descending || this.pagination.descending ? 'desc' : 'asc',
+        order:
+          options.descending || this.pagination.descending ? "desc" : "asc",
         limit: options.rowsPerPage || this.pagination.rowsPerPage,
         page: options.page || this.pagination.page,
-      }
+      };
     },
     fetchBanners(options = {}) {
       let params = this.createRequestParams(options);
-      console.log(params)
       this.$http
         .get("admin/advertising/banners", {
           params,
         })
         .then(({ data }) => {
           this.banners = data.data;
-          /* this.pagination = {
-            rowsPerPage: data.per_page,
-            page: data.current_page,
-            sortBy: "advertiser.category.title_ar",
-            totalItems: data.total,
-            descending:false,
-          }; */
           this.total = data.total;
         })
         .catch((err) => {
@@ -213,31 +210,18 @@ export default {
       return base + link;
     },
     removeBanner(id) {
-      this.$swal
-        .fire({
-          text: `هل انت متاكد من حذق هذا الاعلان`,
-          toast: true,
-          icon: "warning",
-          showDenyButton: true,
-          denyButtonText: "لا",
-          confirmButtonText: "نعم",
-        })
-        .then((response) => {
-          if (response.isConfirmed) {
-            this.$http
-              .delete(`admin/advertising/banners/${id}`)
-              .then(() => {
-                this.fetchBanners();
-              })
-              .catch(() => {
-                this.$swal.fire({
-                  text: "خطأ اثناء حذف الاعلان",
-                  icon: "error",
-                  toast: true,
-                });
-              });
-          }
-        });
+      let response = confirm("هل انت متأكد من حذف هذا الاعلان ؟");
+
+      if (response) {
+        this.$http
+          .delete(`admin/advertising/banners/${id}`)
+          .then(() => {
+            this.fetchBanners();
+          })
+          .catch((error) => {
+            console.log(error)
+          });
+      }
     },
   },
   components: { VideoBanner },
