@@ -214,7 +214,6 @@
         <td class="text-xs-center" v-if="props.item.country.title_ar">
           {{ props.item.country.title_ar }}
         </td>
-
         <td class="text-xs-center" v-if="props.item.region.title_ar">
           {{ props.item.region.title_ar }}
         </td>
@@ -230,6 +229,11 @@
 
         <td class="text-xs-right" v-if="props.item.to">{{ props.item.to }}</td>
         <td class="text-xs-right" v-else>لا يوجد تاريخ</td>
+        <td>
+          <v-btn color="info" :to="`/events/show/${props.item.id}`" flat>
+            <v-icon>open_in_new</v-icon>
+          </v-btn>
+        </td>
         <td class="text-xs-right">
           <v-tooltip top>
             <v-btn
@@ -539,6 +543,12 @@ export default {
         text: "الى",
         align: "center",
         value: "region",
+        sortable: false,
+      },
+      {
+        text: "مشاهدة التفاصيل",
+        align: "center",
+        value: "id",
         sortable: false,
       },
       {

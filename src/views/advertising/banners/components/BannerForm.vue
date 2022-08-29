@@ -373,21 +373,15 @@ export default {
       this.$http
         .post("admin/advertising/banners", data)
         .then((res) => {
-          this.$swal.fire({
-            text: res.data.message,
-            icon: "success",
-            toast: true,
-          });
+          Alert("تم الحفظ")
+
         })
         .catch((err) => {
           if (err.response && err.response.status === 422) {
             this.validationErrors = err.response.data.errors;
           } else {
-            this.$swal.fire({
-              text: "خطا اثناء حفظ الاعلان",
-              icon: "error",
-              toast: true,
-            });
+            Alert("خطأ اثناء الحفظ")
+
           }
         });
     },
@@ -397,21 +391,14 @@ export default {
       let id = this.$route.params.id;
       this.$http.post(`admin/advertising/banners/${id}`,data)
       .then((res) => {
-        this.$swal.fire({
-          text: res.data.message,
-          icon: 'success',
-          toast: true,
-        });
+        Alert("تم الحفظ")
       }).catch((err) => {
          if (err.response && err.response.status === 422) {
             this.validationErrors = err.response.data.errors;
           } else {
-            this.$swal.fire({
-              text: "خطا اثناء حفظ الاعلان",
-              icon: "error",
-              toast: true,
-            });
-          }u
+            Alert("خطأ اثناء الحفظ")
+
+          }
       })
     },
   },

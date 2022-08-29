@@ -59,6 +59,15 @@ const router = new Router({
       }
     },
     {
+      path: '/events/show/:id',
+      name: 'events.show',
+      component: loadView('events/ViewEvent'),
+      secure: true,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/ask-special-event',
       name: 'AskSpecialEvents',
       component: loadView('events/AskSpecialEvents'),
